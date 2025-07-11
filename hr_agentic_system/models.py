@@ -12,6 +12,18 @@ class User(Base):
     role = Column(String)
     password = Column(String)
 
+
+class employeeChat(Base):
+    __tablename__ = 'employee_chats'
+
+    id = Column(Integer, primary_key=True)
+    msg_from = Column(Integer, ForeignKey('users.id'))
+    msg_content = Column(String)
+    date = Column(DateTime, default=datetime.now())
+    msg_reply = Column(String)
+
+    user = relationship('User')
+
 class Attendance(Base):
     __tablename__ = 'attendance'
 

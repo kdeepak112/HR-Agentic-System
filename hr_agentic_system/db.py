@@ -1,6 +1,16 @@
-# db_setup.py
 from sqlalchemy import create_engine
-from models import Base
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
 
-engine = create_engine('sqlite:///hr_system.db')
-Base.metadata.create_all(engine)
+
+DATABASE_URL = "sqlite:///./hr_system.db"  # or your actual DB URL
+
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

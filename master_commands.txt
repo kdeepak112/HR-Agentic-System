@@ -1,0 +1,2 @@
+MAKEMIGRATION COMMAND :- alembic revision --autogenerate -m "Initial tables"
+MIGRATION COMMAND :- alembic upgrade head
