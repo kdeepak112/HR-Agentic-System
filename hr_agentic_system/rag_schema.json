@@ -1,0 +1,153 @@
+{
+  "attendance": {
+    "description": "Tracks daily attendance status of employees including presence or absence on a given date.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "description": "Primary key that uniquely identifies each attendance record."
+      },
+      {
+        "name": "user_id",
+        "type": "INTEGER",
+        "description": "Foreign key referencing the ID of the user whose attendance is being recorded."
+      },
+      {
+        "name": "date",
+        "type": "DATETIME",
+        "description": "The specific date for which attendance is marked."
+      },
+      {
+        "name": "present",
+        "type": "BOOLEAN",
+        "description": "Indicates if the employee was present (true) or absent (false) on the given date."
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [
+      {
+        "column": "user_id",
+        "ref_table": "users",
+        "ref_column": "id"
+      }
+    ]
+  },
+  "employee_chats": {
+    "description": "Stores messages sent by employees to the HR system and their corresponding automated replies.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "description": "Primary key for each message recorded in the system."
+      },
+      {
+        "name": "msg_from",
+        "type": "INTEGER",
+        "description": "ID of the user who has sent the message (foreign key to users table)."
+      },
+      {
+        "name": "msg_content",
+        "type": "VARCHAR",
+        "description": "The content of the message sent by the employee."
+      },
+      {
+        "name": "date",
+        "type": "DATETIME",
+        "description": "Timestamp when the message was sent. Automatically set to the time of insertion."
+      },
+      {
+        "name": "msg_reply",
+        "type": "VARCHAR",
+        "description": "Automated reply or system response to the message, shown back to the user."
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [
+      {
+        "column": "msg_from",
+        "ref_table": "users",
+        "ref_column": "id"
+      }
+    ]
+  },
+  "leaves": {
+    "description": "Captures leave applications submitted by users and their approval status.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "description": "Primary key identifying each leave request."
+      },
+      {
+        "name": "user_id",
+        "type": "INTEGER",
+        "description": "Foreign key referencing the user who applied for the leave."
+      },
+      {
+        "name": "days",
+        "type": "INTEGER",
+        "description": "Number of leave days requested."
+      },
+      {
+        "name": "reason",
+        "type": "VARCHAR",
+        "description": "Text explanation provided by the user for taking leave."
+      },
+      {
+        "name": "approved",
+        "type": "BOOLEAN",
+        "description": "Whether the leave request has been approved (true) or not (false)."
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [
+      {
+        "column": "user_id",
+        "ref_table": "users",
+        "ref_column": "id"
+      }
+    ]
+  },
+  "users": {
+    "description": "Stores basic information about employees including their roles and login credentials.",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "description": "Primary key autoincrement column uniquely identifying each user."
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR",
+        "description": "Full name of the employee."
+      },
+      {
+        "name": "role",
+        "type": "VARCHAR",
+        "description": "Role of the employee within the organization.",
+        "distinct values": [
+          "fresher",
+          "team lead",
+          "project manager",
+          "vice president",
+          "chief executive officer"
+        ]
+      },
+      {
+        "name": "password",
+        "type": "VARCHAR",
+        "description": "Password used for login and authentication of the employee."
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": []
+  }
+}

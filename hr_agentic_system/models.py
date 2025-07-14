@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Boolean 
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime, Boolean , Text
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from datetime import datetime
 
@@ -44,3 +44,15 @@ class Leave(Base):
     approved = Column(Boolean, default=False)
 
     user = relationship('User')
+
+class ChatMemory(Base):
+    __tablename__ = 'chat_memory'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    role = Column(String, nullable=False)  # Should be 'user' or 'assistant'
+    content = Column(Text, nullable=False)
+    timestamp = Column(DateTime, default=datetime.now(), nullable=False)
+
+    # Optional: access user if needed
+    user = relationship("User")

@@ -1,2 +1,6 @@
 MAKEMIGRATION COMMAND :- alembic revision --autogenerate -m "Initial tables"
 MIGRATION COMMAND :- alembic upgrade head
+
+
+VECTOR DB :- QDRANT
+EMBEDDING MODEL :- SENETENCE TRANSFORMERS
